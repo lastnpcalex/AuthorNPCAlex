@@ -11,15 +11,15 @@
             background-size: cover;
             background-attachment: fixed;
             font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
         }
         .container {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
-            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: inline-block;
             margin-top: 50px;
         }
         .profile img {
@@ -27,45 +27,69 @@
             height: 100px;
             border-radius: 50%;
             margin-bottom: 10px;
+            border: 2px solid white;
         }
         .profile h1 {
             margin: 10px 0;
             font-size: 24px;
+            color: #ffd700;
         }
         .profile p {
-            color: #666;
+            color: #ccc;
             font-size: 14px;
             margin-bottom: 20px;
         }
         .links a {
-            display: block;
+            display: flex;
+            align-items: center;
             background-color: #007bff;
             color: white;
             padding: 10px;
             margin: 10px 0;
             text-decoration: none;
             border-radius: 5px;
+            transition: background-color 0.3s;
         }
         .links a:hover {
             background-color: #0056b3;
         }
+        .links img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
         .contact {
             margin-top: 20px;
             font-size: 14px;
+        }
+        .contact a {
+            color: #ffd700;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="profile">
-            <img src="Author_Image.png" alt="Profile Picture">
+            <a href="https://x.com/yourprofile" target="_blank">
+                <img src="Author_Image.png" alt="Profile Picture">
+            </a>
             <h1>Author NPC Alex</h1>
-            <p>⛅i am the Demiurge now, so be nice⛅</p>
+            <p>I am the Demiurge now, so be nice</p>
         </div>
         <div class="links">
-            <a href="https://a.co/d/d4eV40z">A Mote in Shadow (Amazon: Kindle, Paperback)</a>
-            <a href="https://lastnpcalex.gumroad.com/l/AMoteInShadow">A Mote in Shadow (Gumroad: PDF, EPUB)</a>
-            <a href="https://github.com/lastnpcalex/AuthorNPCAlex/blob/main/A%20Mote%20in%20Shadow%20-%20A.N.%20Alex%20-%20First%20Five%20-%20NMD.pdf">Get a 5 Chapter sample of A Mote in Shadow!</a>
+            <a href="https://a.co/d/d4eV40z">
+                <img src="book_cover_amazon.jpg" alt="A Mote in Shadow">
+                A Mote in Shadow (Amazon: Kindle, Paperback)
+            </a>
+            <a href="https://lastnpcalex.gumroad.com/l/AMoteInShadow">
+                <img src="book_cover_gumroad.jpg" alt="A Mote in Shadow">
+                A Mote in Shadow (Gumroad: PDF, EPUB)
+            </a>
+            <a href="https://github.com/lastnpcalex/AuthorNPCAlex/blob/main/A%20Mote%20in%20Shadow%20-%20A.N.%20Alex%20-%20First%20Five%20-%20NMD.pdf">
+                <img src="book_cover_sample.jpg" alt="A Mote in Shadow">
+                Get a 5 Chapter sample of A Mote in Shadow!
+            </a>
         </div>
         <div class="contact">
             <p>Contact us: <a href="mailto:ex.astris.umbra@gmail.com">ex.astris.umbra@gmail.com</a></p>
