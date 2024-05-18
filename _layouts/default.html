@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+    <title>Linktree-like Page</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/Backlit_Saturn_from_Cassini_Orbiter_2007_May_9.jpg');
@@ -13,14 +13,20 @@
             font-family: Arial, sans-serif;
             color: white;
             text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .container {
             background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            display: inline-block;
-            margin-top: 50px;
+            width: 300px;
+            text-align: center;
         }
         .profile img {
             width: 100px;
@@ -76,7 +82,7 @@
                 <img src="Author_Image.png" alt="Profile Picture">
             </a>
             <h1>Author NPC Alex</h1>
-            <p>I am the Demiurge now, so be nice</p>
+            <p>⛅ i am the Demiurge now, so be nice ⛅</p>
         </div>
         <div class="links">
             <a href="https://a.co/d/d4eV40z">
