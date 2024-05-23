@@ -20,9 +20,9 @@ title: "Link Page for Author NPC Alex"
         <img src="AMS_thumbnail_small_gumroad.png" alt="A Mote in Shadow">
         A Mote in Shadow (Gumroad: PDF, EPUB)
     </a>
-    <a href="https://github.com/lastnpcalex/AuthorNPCAlex/blob/main/A%20Mote%20in%20Shadow%20-%20A.N.%20Alex%20-%20First%20Five%20-%20NMD.pdf">
+    <a href="https://github.com/lastnpcalex/AuthorNPCAlex/blob/main/A%20Mote%20in%20Shadow%20-%20A.N.%20Alex%20-%20First%20Two%20-%20.pdf">
         <img src="AMS_thumbnail_small_sample.png" alt="A Mote in Shadow">
-        Get a 5 Chapter sample of A Mote in Shadow!
+        Get a TWO CHAPTER sample of A Mote in Shadow!
     </a>
 </div>
 <div class="contact">
