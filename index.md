@@ -20,6 +20,10 @@ title: "Link Page for Author NPC Alex"
         <img src="AMS_thumbnail_small_gumroad.png" alt="A Mote in Shadow">
         A Mote in Shadow (Gumroad: PDF, EPUB)
     </a>
+    <a href="https://www.barnesandnoble.com/w?ean=2940185881507">
+        <img src="AMS_thumbnail_120x120xBN.png" alt="A Mote in Shadow">
+        A Mote in Shadow (Barnes & Noble: Nook)
+    </a>
     <a href="https://www.kobo.com/us/en/ebook/a-mote-in-shadow">
         <img src="AMS_thumbnail_120x120xkobo.png" alt="A Mote in Shadow">
         A Mote in Shadow (Kobo: EPUB)
