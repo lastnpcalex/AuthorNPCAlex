@@ -22,7 +22,11 @@ title: "Link Page for Author NPC Alex"
     </a>
     <a href="https://www.barnesandnoble.com/w?ean=2940185881507">
         <img src="AMS_thumbnail_120x120xBN.png" alt="A Mote in Shadow">
-        A Mote in Shadow (Barnes & Noble: Nook)
+        A Mote in Shadow (Barnes & Noble: Nook, Paperback)
+    </a>
+    <a href="https://play.google.com/store/books/details/A_N_Alex_A_Mote_in_Shadow?id=JXgKEQAAQBAJ">
+        <img src="AMS_thumbnail_120x120xgoogleplay.png" alt="A Mote in Shadow">
+        A Mote in Shadow (Google Books EPUB)
     </a>
     <a href="https://www.kobo.com/us/en/ebook/a-mote-in-shadow">
         <img src="AMS_thumbnail_120x120xkobo.png" alt="A Mote in Shadow">
