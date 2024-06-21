@@ -11,7 +11,7 @@ title: "Link Page for Author NPC Alex"
     <p>⛅ i am the Demiurge now, so be nice ⛅</p>
     <p> get A.N. Alex's debut sci-fi novel A Mote In Shadow at the links below 👇</p>
 </div>
-<div class="single-link">
+<div class="links">
     <a href="https://github.com/lastnpcalex/AuthorNPCAlex/blob/main/A%20Mote%20in%20Shadow%20-%20A.N.%20Alex%20-%20First%20Two.pdf">
         <img src="AMS_thumbnail_small_sample.png" alt="A Mote in Shadow">
         Get a TWO CHAPTER sample, free!
