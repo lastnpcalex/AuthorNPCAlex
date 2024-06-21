@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: twocol
 title: "Link Page for Author NPC Alex"
 ---
 
