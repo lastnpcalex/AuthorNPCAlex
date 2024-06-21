@@ -12,30 +12,35 @@ title: "Link Page for Author NPC Alex"
     <p> get A.N. Alex's debut sci-fi novel at the links below 👇</p>
 </div>
 <div class="links">
-    <a href="https://a.co/d/d4eV40z">
-        <img src="AMS_thumbnail_small_amazon.png" alt="A Mote in Shadow">
-        A Mote in Shadow (Amazon: Kindle, Paperback)
-    </a>
-    <a href="https://lastnpcalex.gumroad.com/l/AMoteInShadow">
-        <img src="AMS_thumbnail_small_gumroad.png" alt="A Mote in Shadow">
-        A Mote in Shadow (Gumroad: PDF, EPUB)
-    </a>
-    <a href="https://www.barnesandnoble.com/w?ean=2940185881507">
-        <img src="AMS_thumbnail_120x120xBN.png" alt="A Mote in Shadow">
-        A Mote in Shadow (Barnes & Noble: Nook, Paperback)
-    </a>
-    <a href="https://play.google.com/store/books/details/A_N_Alex_A_Mote_in_Shadow?id=JXgKEQAAQBAJ">
-        <img src="AMS_thumbnail_120x120xgoogleplay.png" alt="A Mote in Shadow">
-        A Mote in Shadow (Google Books EPUB)
-    </a>
-    <a href="https://www.kobo.com/us/en/ebook/a-mote-in-shadow">
-        <img src="AMS_thumbnail_120x120xkobo.png" alt="A Mote in Shadow">
-        A Mote in Shadow (Kobo: EPUB)
-    </a>
-    <a href="https://github.com/lastnpcalex/AuthorNPCAlex/blob/main/A%20Mote%20in%20Shadow%20-%20A.N.%20Alex%20-%20First%20Two.pdf">
+     <a href="https://github.com/lastnpcalex/AuthorNPCAlex/blob/main/A%20Mote%20in%20Shadow%20-%20A.N.%20Alex%20-%20First%20Two.pdf">
         <img src="AMS_thumbnail_small_sample.png" alt="A Mote in Shadow">
         Get a TWO CHAPTER sample of A Mote in Shadow!
     </a>
+    <a href="https://a.co/d/d4eV40z">
+        <img src="AMS_thumbnail_small_amazon.png" alt="A Mote in Shadow (Amazon)">
+        A Mote in Shadow (Amazon: Kindle, Paperback)
+    </a>
+    <a href="https://lastnpcalex.gumroad.com/l/AMoteInShadow">
+        <img src="AMS_thumbnail_small_gumroad.png" alt="A Mote in Shadow (Gumroad)">
+        A Mote in Shadow (Gumroad: PDF, EPUB)
+    </a>
+    <a href="https://www.barnesandnoble.com/w?ean=2940185881507">
+        <img src="AMS_thumbnail_120x120xBN.png" alt="A Mote in Shadow (Barnes and Noble)">
+        A Mote in Shadow (Barnes & Noble: Nook, Paperback)
+    </a>
+    <a href="https://play.google.com/store/books/details/A_N_Alex_A_Mote_in_Shadow?id=JXgKEQAAQBAJ">
+        <img src="AMS_thumbnail_120x120xgoogleplay.png" alt="A Mote in Shadow (Google)">
+        A Mote in Shadow (Google Books: EPUB)
+    </a>
+    <a href="https://www.kobo.com/us/en/ebook/a-mote-in-shadow">
+        <img src="AMS_thumbnail_120x120xkobo.png" alt="A Mote in Shadow (Kobo)">
+        A Mote in Shadow (Kobo: EPUB)
+    </a>
+     <a href="https://www.smashwords.com/books/view/1580515">
+        <img src="smashwords.jpg" alt="A Mote in Shadow (Smashwords)">
+        A Mote in Shadow (Smashwords: EPUB)
+    </a>
+   
 </div>
 <div class="contact">
     <p>Contact us: <a href="mailto:ex.astris.umbra+exu@gmail.com">ex.astris.umbra+exu@gmail.com</a></p>
