@@ -52,10 +52,26 @@
             font-size: 14px;
             margin-bottom: 20px;
         }
+        .single-link {
+            margin-bottom: 20px; /* Added */
+        }
+        .single-link a {
+            display: flex;
+            align-items: center;
+            background-color: #000000; /* Black */
+            color: #F702A9; /* Cherry Blossom Pink */
+            padding: 10px;
+            margin: 10px 0;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
         .links {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: center; /* Changed from space-around to center */
             overflow-x: auto; /* Added */
             white-space: nowrap; /* Added */
         }
