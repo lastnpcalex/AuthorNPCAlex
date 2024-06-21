@@ -20,10 +20,7 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow-y: auto; /* Added to allow vertical scrolling */
         }
         .container {
             background-color: rgba(0, 0, 0, 0.8);
@@ -33,6 +30,7 @@
             width: 80%;
             max-width: 800px;
             text-align: center;
+            margin: 20px auto; /* Added to center container with some margin */
         }
         .profile img {
             width: 100px;
@@ -57,7 +55,7 @@
         .single-link a {
             display: flex;
             align-items: center;
-            justify-content: center; /* Added */
+            justify-content: center; /* Center the content */
             background-color: #000000; /* Black */
             color: #F702A9; /* Cherry Blossom Pink */
             padding: 10px;
@@ -65,8 +63,11 @@
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s;
-            width: calc(100% - 20px); /* Adjusted */
+            width: 100%; /* Full width */
             box-sizing: border-box;
+        }
+        .single-link a img {
+            margin-right: 10px;
         }
         .links {
             display: flex;
