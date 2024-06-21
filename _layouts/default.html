@@ -20,7 +20,8 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            overflow-y: auto; /* Added to allow vertical scrolling */
+            height: 100%;
+            overflow-y: auto; /* Allow vertical scrolling */
         }
         .container {
             background-color: rgba(0, 0, 0, 0.8);
@@ -29,8 +30,8 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             width: 80%;
             max-width: 800px;
-            text-align: center;
-            margin: 20px auto; /* Added to center container with some margin */
+            margin: 20px auto; /* Center container with margin */
+            box-sizing: border-box;
         }
         .profile img {
             width: 100px;
