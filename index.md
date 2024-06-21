@@ -11,11 +11,13 @@ title: "Link Page for Author NPC Alex"
     <p>⛅ i am the Demiurge now, so be nice ⛅</p>
     <p> get A.N. Alex's debut sci-fi novel A Mote In Shadow at the links below 👇</p>
 </div>
-<div class="links">
-     <a href="https://github.com/lastnpcalex/AuthorNPCAlex/blob/main/A%20Mote%20in%20Shadow%20-%20A.N.%20Alex%20-%20First%20Two.pdf">
+<div class="single-link">
+    <a href="https://github.com/lastnpcalex/AuthorNPCAlex/blob/main/A%20Mote%20in%20Shadow%20-%20A.N.%20Alex%20-%20First%20Two.pdf">
         <img src="AMS_thumbnail_small_sample.png" alt="A Mote in Shadow">
         Get a TWO CHAPTER sample, free!
     </a>
+</div>
+<div class="links">
     <a href="https://a.co/d/d4eV40z">
         <img src="AMS_thumbnail_small_amazon.png" alt="A Mote in Shadow (Amazon)">
         Amazon: Kindle, Paperback
@@ -28,7 +30,7 @@ title: "Link Page for Author NPC Alex"
         <img src="AMS_thumbnail_120x120xBN.png" alt="A Mote in Shadow (Barnes and Noble)">
         Barnes & Noble: Nook, Paperback
     </a>
-      <a href="https://books.apple.com/us/book/a-mote-in-shadow/id6504643594">
+    <a href="https://books.apple.com/us/book/a-mote-in-shadow/id6504643594">
         <img src="apple.png" alt="A Mote in Shadow (Apple)"> 
         Apple: EPUB
     </a>
@@ -40,23 +42,23 @@ title: "Link Page for Author NPC Alex"
         <img src="AMS_thumbnail_120x120xkobo.png" alt="A Mote in Shadow (Kobo)">
         Kobo: EPUB
     </a>
-     <a href="https://www.smashwords.com/books/view/1580515">
+    <a href="https://www.smashwords.com/books/view/1580515">
         <img src="smashwords.jpg" alt="A Mote in Shadow (Smashwords)">
         Smashwords: EPUB
     </a>
-       <a href="https://www.smashwords.com/books/view/1580515">
+    <a href="https://www.smashwords.com/books/view/1580515">
         <img src="Everand.png" alt="A Mote in Shadow (Everand)">
         Everand: EPUB
     </a>
-       <a href="https://www.thalia.de/shop/home/artikeldetails/A1072246913">
+    <a href="https://www.thalia.de/shop/home/artikeldetails/A1072246913">
         <img src="thalia.jpg" alt="A Mote in Shadow (Thalia)">
         Thalia: EPUB
     </a>
-       <a href="https://fable.co/book/x-9798227966308">
+    <a href="https://fable.co/book/x-9798227966308">
         <img src="fable.png" alt="A Mote in Shadow (Fable)">
         Fable: EPUB
     </a>
-        <a href="https://shop.vivlio.com/product/9798227966308_9798227966308_10020/a-mote-in-shadow">
+    <a href="https://shop.vivlio.com/product/9798227966308_9798227966308_10020/a-mote-in-shadow">
         <img src="vivlio.png" alt="A Mote in Shadow (Vivlio)">
         Vivlio: EPUB
     </a>
