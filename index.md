@@ -20,15 +20,15 @@ title: "Link Page for Author NPC Alex"
 <div class="links">
     <a href="https://a.co/d/d4eV40z">
         <img src="AMS_thumbnail_small_amazon.png" alt="A Mote in Shadow (Amazon)">
-        Amazon: Kindle, Paperback
+        Amazon:<br> Kindle, Paperback
     </a>
     <a href="https://lastnpcalex.gumroad.com/l/AMoteInShadow">
         <img src="AMS_thumbnail_small_gumroad.png" alt="A Mote in Shadow (Gumroad)">
-        Gumroad: PDF, EPUB
+        Gumroad:<br> PDF, EPUB
     </a>
     <a href="https://www.barnesandnoble.com/w?ean=2940185881507">
         <img src="AMS_thumbnail_120x120xBN.png" alt="A Mote in Shadow (Barnes and Noble)">
-        Barnes & Noble: Nook, Paperback
+        Barnes & Noble:<br> Nook, Paperback
     </a>
     <a href="https://books.apple.com/us/book/a-mote-in-shadow/id6504643594">
         <img src="apple.png" alt="A Mote in Shadow (Apple)"> 
