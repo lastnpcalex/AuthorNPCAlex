@@ -28,6 +28,10 @@ title: "Link Page for Author NPC Alex"
         <img src="AMS_thumbnail_120x120xBN.png" alt="A Mote in Shadow (Barnes and Noble)">
         A Mote in Shadow (Barnes & Noble: Nook, Paperback)
     </a>
+      <a href="https://books.apple.com/us/book/a-mote-in-shadow/id6504643594">
+        <img src="apple.png" alt="A Mote in Shadow (Apple)">
+        A Mote in Shadow (Apple: EPUB)
+    </a>
     <a href="https://play.google.com/store/books/details/A_N_Alex_A_Mote_in_Shadow?id=JXgKEQAAQBAJ">
         <img src="AMS_thumbnail_120x120xgoogleplay.png" alt="A Mote in Shadow (Google)">
         A Mote in Shadow (Google Books: EPUB)
@@ -44,7 +48,18 @@ title: "Link Page for Author NPC Alex"
         <img src="Everand.png" alt="A Mote in Shadow (Everand)">
         A Mote in Shadow (Everand: EPUB)
     </a>
-   
+       <a href="https://www.thalia.de/shop/home/artikeldetails/A1072246913">
+        <img src="thalia.jpg" alt="A Mote in Shadow (Thalia)">
+        A Mote in Shadow (Thalia: EPUB)
+    </a>
+       <a href="https://fable.co/book/x-9798227966308">
+        <img src="fable.png" alt="A Mote in Shadow (Fable)">
+        A Mote in Shadow (Fable: EPUB)
+    </a>
+        <a href="https://shop.vivlio.com/product/9798227966308_9798227966308_10020/a-mote-in-shadow">
+        <img src="vivlio.png" alt="A Mote in Shadow (Vivlio)">
+        A Mote in Shadow (Vivlio: EPUB)
+    </a>
 </div>
 <div class="contact">
     <p>Contact us: <a href="mailto:ex.astris.umbra+exu@gmail.com">ex.astris.umbra+exu@gmail.com</a></p>
