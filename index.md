@@ -40,6 +40,10 @@ title: "Link Page for Author NPC Alex"
         <img src="smashwords.jpg" alt="A Mote in Shadow (Smashwords)">
         A Mote in Shadow (Smashwords: EPUB)
     </a>
+       <a href="https://www.smashwords.com/books/view/1580515">
+        <img src="Everand.png" alt="A Mote in Shadow (Everand)">
+        A Mote in Shadow (Everand: EPUB)
+    </a>
    
 </div>
 <div class="contact">
