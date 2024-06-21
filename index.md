@@ -20,47 +20,47 @@ title: "Link Page for Author NPC Alex"
 <div class="links">
     <a href="https://a.co/d/d4eV40z">
         <img src="AMS_thumbnail_small_amazon.png" alt="A Mote in Shadow (Amazon)">
-        Amazon:<br> Kindle, Paperback
+        Amazon<br> Kindle, Paperback
     </a>
     <a href="https://lastnpcalex.gumroad.com/l/AMoteInShadow">
         <img src="AMS_thumbnail_small_gumroad.png" alt="A Mote in Shadow (Gumroad)">
-        Gumroad:<br> PDF, EPUB
+        Gumroad<br> PDF, EPUB
     </a>
     <a href="https://www.barnesandnoble.com/w?ean=2940185881507">
         <img src="AMS_thumbnail_120x120xBN.png" alt="A Mote in Shadow (Barnes and Noble)">
-        Barnes & Noble:<br> Nook, Paperback
+        Barnes & Noble<br> Nook, Paperback
     </a>
     <a href="https://books.apple.com/us/book/a-mote-in-shadow/id6504643594">
         <img src="apple.png" alt="A Mote in Shadow (Apple)"> 
-        Apple: EPUB
+        Apple<br> EPUB
     </a>
     <a href="https://play.google.com/store/books/details/A_N_Alex_A_Mote_in_Shadow?id=JXgKEQAAQBAJ">
         <img src="AMS_thumbnail_120x120xgoogleplay.png" alt="A Mote in Shadow (Google)">
-        Google Books: EPUB
+        Google Books<br> EPUB
     </a>
     <a href="https://www.kobo.com/us/en/ebook/a-mote-in-shadow">
         <img src="AMS_thumbnail_120x120xkobo.png" alt="A Mote in Shadow (Kobo)">
-        Kobo: EPUB
+        Kobo<br> EPUB
     </a>
     <a href="https://www.smashwords.com/books/view/1580515">
         <img src="smashwords.jpg" alt="A Mote in Shadow (Smashwords)">
-        Smashwords: EPUB
+        Smashwords<br> EPUB
     </a>
     <a href="https://www.smashwords.com/books/view/1580515">
         <img src="Everand.png" alt="A Mote in Shadow (Everand)">
-        Everand: EPUB
+        Everand<br> EPUB
     </a>
     <a href="https://www.thalia.de/shop/home/artikeldetails/A1072246913">
         <img src="thalia.jpg" alt="A Mote in Shadow (Thalia)">
-        Thalia: EPUB
+        Thalia<br> EPUB
     </a>
     <a href="https://fable.co/book/x-9798227966308">
         <img src="fable.png" alt="A Mote in Shadow (Fable)">
-        Fable: EPUB
+        Fable<br> EPUB
     </a>
     <a href="https://shop.vivlio.com/product/9798227966308_9798227966308_10020/a-mote-in-shadow">
         <img src="vivlio.png" alt="A Mote in Shadow (Vivlio)">
-        Vivlio: EPUB
+        Vivlio<br> EPUB
     </a>
 </div>
 <div class="contact">
