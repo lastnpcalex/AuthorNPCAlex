@@ -46,7 +46,7 @@ title: "Link Page for Author NPC Alex"
         <img src="smashwords.jpg" alt="A Mote in Shadow (Smashwords)">
         Smashwords: EPUB
     </a>
-    <a href="https://www.smashwords.com/books/view/1580515">
+    <a href="https://www.everand.com/book/743986453/A-Mote-in-Shadow-Ex-Astris-Umbra-1">
         <img src="Everand.png" alt="A Mote in Shadow (Everand)">
         Everand: EPUB
     </a>
