@@ -4,7 +4,7 @@ title: "Link Page for Author NPC Alex"
 ---
 
 <div class="profile">
-    <a href="https://x.com/lastnpcalex" target="_blank">
+    <a href="https://bsky.app/profile/lastnpcalex.com" target="_blank">
         <img src="Author_Image.png" alt="Profile Picture">
     </a>
     <h1>Author NPC Alex</h1>
