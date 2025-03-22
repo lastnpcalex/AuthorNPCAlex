@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enhanced Black Hole with Gas Cloud Disk</title>
+    <style>
+    body {
+        margin: 0px;
+        overflow: hidden;
+        background-color: #000;
+    }
+    #info {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: white;
+        font-family: monospace;
+        font-size: 12px;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px;
+        border-radius: 3px;
+        pointer-events: none;
+    }
+    </style>
+</head>
+<body>
+    <div id="info">
+        Enhanced Black Hole Visualization<br>
+        Move mouse to position black hole<br>
+        Use sliders to adjust properties
+    </div>
+    
+    <!-- Vertex Shader -->
+    <script id="vertexShader" type="x-shader/x-vertex">
+        varying vec2 vUv;
+    
+        void main() {
+            vUv = uv;
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    </script>
+    
+    <!-- Fragment Shader -->
+    <script id="black_hole" type="x-shader/x-fragment">
+    uniform vec2 u_resolution;
+    uniform vec3 u_mouse;
+    uniform sampler2D u_currentTexture;
+    uniform sampler2D u_texture;
+    uniform sampler2D u_diskTexture;
+    uniform int u_frameCount;
+    uniform float u_time;
+    varying vec2 vUv;
+    
+    // Black hole properties
+    uniform float u_distance;   // D_L, distance between observer and lens
+    uniform float u_r_s;        // r_s, Schwarzschild radius of black hole
+    
+    // Accretion disk properties
+    uniform bool u_diskVisible;
+    uniform float u_diskRadius;
+    uniform float u_diskAngle;
+    uniform float u_diskThickness;
+    uniform float u_diskBrightness;
+    uniform float u_diskRotationSpeed;
+    
+    // Glow properties
+    uniform float u_glowStrength;
+    uniform float u_glowSize;
+    
+    #define PI 3.1415926535897932384626433832795
+    
+    // Utility functions
+    float rand(float x) {
+        return fract(sin(x * 12.9898) * 43758.5453);
+    }
+    
+    vec2 rand2(float x) {
+        return vec2(fract(sin(x * 12.9898) * 43758.5453),
+                    fract(sin(x * 78.2330) * 43758.5453));
+    }
+    
+    // Better noise functions for turbulence
+    float hash(float n) {
+        return fract(sin(n) * 43758.5453);
+    }
+
+    float noise(vec3 x) {
+        // The noise function returns a value in the range -1.0 -> 1.0
+        vec3 p = floor(x);
+        vec3 f = fract(x);
+        f = f * f * (3.0 - 2.0 * f);
+        
+        float n = p.x + p.y * 57.0 + p.z * 113.0;
+        
+        float res = mix(mix(mix(hash(n), hash(n + 1.0), f.x),
+                            mix(hash(n + 57.0), hash(n + 58.0), f.x), f.y),
+                        mix(mix(hash(n + 113.0), hash(n + 114.0), f.x),
+                            mix(hash(n + 170.0), hash(n + 171.0), f.x), f.y), f.z);
+        return res;
+    }
+
+    // Turbulence function for swirling gas effect
+    float turbulence(vec3 p, float time) {
+        float t = 0.0;
+        float f = 1.0;
+        
+        // Add time-based rotation to create swirling
+        float angle = time * 0.2;
+        p.xz = mat2(cos(angle), -sin(angle), sin(angle), cos(angle)) * p.xz;
+        
+        for (int i = 0; i < 4; i++) {
+            t += abs(noise(p * f)) / f;
+            f *= 2.0;
+            // Rotate each octave differently
+            float octaveAngle = time * 0.1 * float(i+1);
+            p.xz = mat2(cos(octaveAngle), -sin(octaveAngle), sin(octaveAngle), cos(octaveAngle)) * p.xz;
+        }
+        
+        return t;
+    }
+    
+    // Rotation matrix for 3D vectors
+    mat3 rotationMatrix(vec3 axis, float angle) {
+        float s = sin(angle);
+        float c = cos(angle);
+        float oc = 1.0 - c;
+        
+        return mat3(
+            oc * axis.x * axis.x + c, oc * axis.x * axis.y - axis.z * s, oc * axis.z * axis.x + axis.y * s,
+            oc * axis.x * axis.y + axis.z * s, oc * axis.y * axis.y + c, oc * axis.y * axis.z - axis.x * s,
+            oc * axis.z * axis.x - axis.y * s, oc * axis.y * axis.z + axis.x * s, oc * axis.z * axis.z + c
+        );
+    }
+    
+    // Enhanced disk color function for gas-like appearance
+    vec3 getDiskColor(float distance, float angle) {
+        // Normalized distance for calculations
+        float normDist = distance / u_diskRadius;
+        float innerBoundary = u_r_s * 1.5 / u_diskRadius;
+        
+        // Create 3D position for turbulence
+        vec3 pos = vec3(cos(angle) * distance, 0.0, sin(angle) * distance);
+        
+        // Add time-based rotation for obvious spinning
+        float rotationSpeed = u_diskRotationSpeed * u_time;
+        
+        // Turbulence parameters - vary by distance from center
+        float turbulenceScale = 15.0 * (1.0 - 0.5 * normDist); // More detail near center
+        float turbulenceTime = u_time * u_diskRotationSpeed;
+        vec3 turbulencePos = vec3(pos.x * turbulenceScale, pos.y * turbulenceScale, pos.z * turbulenceScale);
+        
+        // Calculate base turbulence
+        float turb = turbulence(turbulencePos, turbulenceTime);
+        
+        // Add some swirls - this creates the appearance of spinning gas clouds
+        float swirl = sin(angle * 5.0 + rotationSpeed * 2.0 + turb * 3.0) * 0.5 + 0.5;
+        float swirl2 = cos(angle * 3.0 - rotationSpeed * 1.5 + turb * 2.0) * 0.5 + 0.5;
+        
+        // Temperature decreases with distance, with more variation
+        float temp = 1.0 - pow(normDist, 0.7) + turb * 0.2 - 0.1; 
+        temp = clamp(temp, 0.0, 1.0);
+        
+        // Color variations for hot gas
+        vec3 hotColor = vec3(1.0, 0.6, 0.2); // Orange-yellow for hot inner parts
+        vec3 midColor = vec3(0.9, 0.3, 0.6); // Pinkish-purple for middle
+        vec3 coolColor = vec3(0.4, 0.2, 0.8); // Blue-purple for outer parts
+        
+        // Mix colors based on temperature, turbulence and swirls
+        vec3 color;
+        if (temp > 0.6) {
+            color = mix(hotColor, midColor, (temp - 0.6) / 0.4);
+        } else {
+            color = mix(coolColor, midColor, temp / 0.6);
+        }
+        
+        // Add swirl intensity to color
+        color = mix(color, hotColor, swirl * 0.3);
+        color = mix(color, coolColor, swirl2 * 0.2);
+        
+        // Create a distance-dependent glow effect
+        float innerGlow = smoothstep(innerBoundary, innerBoundary + 0.2, normDist) * 
+                         (1.0 - smoothstep(0.7, 1.0, normDist));
+        float brightness = mix(0.7, 2.0, innerGlow) * u_diskBrightness;
+        
+        // Add some "filament" patterns to the disk
+        float filament = sin(angle * 8.0 + normDist * 20.0 + u_time * u_diskRotationSpeed * 2.0) * 0.5 + 0.5;
+        filament = pow(filament, 4.0) * (1.0 - normDist * 0.5);
+        
+        // Add time-varying brighter spots
+        float spots = noise(vec3(pos.x * 40.0, pos.z * 40.0, u_time * u_diskRotationSpeed));
+        spots = pow(spots, 8.0) * 2.0;
+        
+        // Increase brightness with filaments and spots
+        brightness *= 1.0 + filament * 0.4 + spots * 2.0;
+        
+        // Apply turbulence to density
+        float density = 0.8 + turb * 0.4;
+        
+        // Final color with brightness and turbulence
+        return color * brightness * density;
+    }
+    
+    // Enhanced disk density function for cloud-like appearance
+    float getDiskDensity(vec3 point) {
+        mat3 rotMat = rotationMatrix(vec3(1.0, 0.0, 0.0), u_diskAngle);
+        vec3 rotPoint = rotMat * point;
+        
+        float r = length(point.xz);
+        float normR = (r - u_r_s * 1.5) / (u_diskRadius - u_r_s * 1.5);
+        normR = clamp(normR, 0.0, 1.0);
+        
+        // Create turbulent, cloud-like density
+        float angle = atan(point.z, point.x);
+        
+        // Base scale depends on disk size
+        float turbScale = 10.0 / u_diskRadius;
+        
+        // Add time-varying turbulence to density
+        vec3 turbPos = vec3(point.x * turbScale, point.y * turbScale, point.z * turbScale);
+        float turb = turbulence(turbPos, u_time * u_diskRotationSpeed);
+        
+        // Vary thickness based on turbulence and angle for cloud-like look
+        float varyingThickness = u_diskThickness * (1.0 + turb * 2.0);
+        varyingThickness *= 1.0 + 0.5 * sin(angle * 4.0 + u_time * u_diskRotationSpeed * 2.0);
+        
+        // Height distribution - make it cloud-like with vertical turbulence
+        float height = rotPoint.y / varyingThickness;
+        float heightFactor = exp(-height * height * (3.0 + turb * 4.0));
+        
+        // Add filaments and structures to density
+        float filament = sin(angle * 6.0 + normR * 15.0 + u_time * u_diskRotationSpeed) * 0.5 + 0.5;
+        filament = pow(filament, 3.0) * (1.0 - normR * 0.7);
+        
+        // Radial density profile with turbulence
+        float radialFactor = pow(1.0 - normR, 1.0) * exp(-normR * (2.0 + turb));
+        
+        // Add time-varying density fluctuations
+        float densityFluctuation = noise(vec3(
+            point.x * 30.0, 
+            point.z * 30.0, 
+            u_time * u_diskRotationSpeed * 0.5
+        ));
+        densityFluctuation = pow(densityFluctuation, 4.0) * 2.0;
+        
+        // Combine everything for final density
+        float density = heightFactor * radialFactor * (1.0 + filament * 0.5 + densityFluctuation + turb * 0.3);
+        
+        // Scale brightness for better visibility with larger disks
+        float brightness = 1.0 + u_diskRadius * 3.0;
+        
+        return density * brightness;
+    }
+    
+    void main() {
+        // Get coordinates relative to black hole center
+        vec2 D_S = vUv - u_mouse.xy; // D_S, distance between viewer and black hole
+        vec2 ratio = vec2(u_resolution.y/u_resolution.x, 1.0); // Screen resolution ratio
+        float rad = length(D_S/ratio);
+        
+        // Calculate gravitational lensing deformation
+        float deformation = 2.0 * u_r_s * 1.0 / pow(rad * pow(u_distance, 0.5), 2.0) * 0.1;
+        
+        // Apply gravitational lensing to coordinates
+        D_S = D_S * (1.0 - deformation);
+        vec2 lensedCoords = D_S + u_mouse.xy;
+        
+        // Start with background color
+        vec4 color = texture2D(u_texture, lensedCoords);
+        
+        // Variables to track disk properties for glow calculation
+        vec3 diskContribution = vec3(0.0);
+        float diskIntensity = 0.0;
+        bool isInFrontOfBlackHole = false;
+        
+        // Create 3D ray from camera through current fragment
+        // We're in an orthogonal view, so all rays are parallel to the z-axis
+        vec3 rayOrigin = vec3(D_S.x, D_S.y, -u_distance);
+        vec3 rayDir = vec3(0.0, 0.0, 1.0);
+        
+        // Accretion disk rendering
+        if (u_diskVisible) {
+            // Simple ray-disk intersection for this demo
+            // Calculate intersection with disk plane (after rotation by disk angle)
+            mat3 invRotMat = rotationMatrix(vec3(1.0, 0.0, 0.0), -u_diskAngle);
+            vec3 rotRayOrigin = invRotMat * rayOrigin;
+            vec3 rotRayDir = invRotMat * rayDir;
+            
+            // If ray is not parallel to disk plane
+            if (abs(rotRayDir.y) > 0.0001) {
+                float t = -rotRayOrigin.y / rotRayDir.y;
+                vec3 intersection = rotRayOrigin + t * rotRayDir;
+                
+                // Check if intersection is within disk radius
+                float r = length(intersection.xz);
+                if (r > u_r_s * 1.5 && r < u_diskRadius) {
+                    // Calculate disk color
+                    float angle = atan(intersection.z, intersection.x);
+                    vec3 diskColor = getDiskColor(r, angle);
+                    
+                    // Apply disk color based on visibility to camera
+                    // Opacity depends on density and viewing angle
+                    float density = getDiskDensity(intersection);
+                    
+                    // Store disk contribution for glow
+                    diskContribution = diskColor;
+                    diskIntensity = density;
+                    
+                    // Determine if intersection is in front of or behind the black hole
+                    // Check the z coordinate of the intersection in the original (unrotated) space
+                    vec3 worldIntersection = rotationMatrix(vec3(1.0, 0.0, 0.0), u_diskAngle) * intersection;
+                    
+                    // If z > 0, the intersection is in front of the black hole
+                    isInFrontOfBlackHole = (worldIntersection.z > 0.0);
+                    
+                    // Apply different compositing for front vs back of disk
+                    vec3 baseColor = color.rgb;
+                    vec3 combinedColor;
+                    
+                    if (isInFrontOfBlackHole) {
+                        // Front of disk - this should always be visible regardless of black hole
+                        combinedColor = mix(baseColor, diskColor, min(density * 3.0, 1.0));
+                    } else {
+                        // Back of disk - only visible through gravitational lensing
+                        // Check if ray is inside the event horizon
+                        if (rad * u_distance < u_r_s) {
+                            // Inside event horizon - no light escapes, so disk isn't visible
+                            combinedColor = vec3(0.0);
+                        } else {
+                            // Outside event horizon - apply normal mixing
+                            combinedColor = mix(baseColor, diskColor, min(density * 3.0, 1.0));
+                        }
+                    }
+                    
+                    // Add glow effect for the disk
+                    float glow = exp(-pow(r / u_diskRadius, 2.0) * 5.0) * 0.5;
+                    combinedColor += diskColor * glow;
+                    
+                    color = vec4(combinedColor, 1.0);
+                }
+            }
+            
+            // Apply glow effect - even to pixels not directly on the disk
+            // This creates the bloom-like effect
+            if (u_glowStrength > 0.0 && diskIntensity > 0.0) {
+                // Sample nearby points to create a glow effect
+                for (float i = -2.0; i <= 2.0; i += 1.0) {
+                    for (float j = -2.0; j <= 2.0; j += 1.0) {
+                        if (i == 0.0 && j == 0.0) continue; // Skip center pixel
+                        
+                        vec2 offset = vec2(i, j) * u_glowSize / 100.0;
+                        vec2 sampleCoord = vUv + offset;
+                        
+                        // Calculate distance to center of disk
+                        vec2 sampleD_S = sampleCoord - u_mouse.xy;
+                        float sampleRad = length(sampleD_S/ratio);
+                        
+                        // Simple falloff based on distance
+                        float weight = 1.0 - length(offset) * 10.0;
+                        weight = max(0.0, weight);
+                        
+                        // Add weighted glow
+                        color.rgb += diskContribution * weight * u_glowStrength * diskIntensity * 0.1;
+                    }
+                }
+            }
+        }
+        
+        // Black hole event horizon rendering
+        // BUT don't override disk parts that should be in front of the black hole
+        if (rad * u_distance < u_r_s && !isInFrontOfBlackHole) {
+            // Inside event horizon and not looking at front of disk - no light escapes
+            color = vec4(0.0, 0.0, 0.0, 1.0);
+        }
+        
+        gl_FragColor = color;
+    }
+    </script>
+    
+    <!-- Load libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+    
+    <!-- Load your main script -->
+    <script src="black-hole.js"></script>
+</body>
+</html>
