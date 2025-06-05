@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: blackhole
 title: "Link Page for Author NPC Alex"
 ---
 
