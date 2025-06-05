@@ -41,37 +41,38 @@
             position: relative;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             padding: 20px;
+            padding-right: 40px;
             background: 
                 repeating-linear-gradient(
                     0deg,
-                    rgba(171, 247, 3, 0.03) 0px,
+                    rgba(247, 2, 169, 0.05) 0px,
                     transparent 1px,
-                    transparent 2px,
-                    rgba(171, 247, 3, 0.03) 3px
+                    transparent 99px,
+                    rgba(247, 2, 169, 0.05) 100px
                 ),
                 repeating-linear-gradient(
                     90deg,
-                    rgba(171, 247, 3, 0.03) 0px,
+                    rgba(247, 2, 169, 0.05) 0px,
                     transparent 1px,
-                    transparent 2px,
-                    rgba(171, 247, 3, 0.03) 3px
+                    transparent 99px,
+                    rgba(247, 2, 169, 0.05) 100px
                 );
-            background-size: 50px 50px;
+            background-size: 100px 100px;
             animation: grid-move 10s linear infinite;
         }
         
         @keyframes grid-move {
             0% { background-position: 0 0; }
-            100% { background-position: 50px 50px; }
+            100% { background-position: 100px 100px; }
         }
         
         /* Content container with glassmorphism */
         .content-wrapper {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
             border: 2px solid #F702A9;
             border-radius: 20px;
             padding: 40px;
@@ -240,9 +241,15 @@
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
+            .main-container {
+                justify-content: center;
+                padding: 20px;
+            }
+            
             .content-wrapper {
                 padding: 25px;
                 margin: 20px;
+                margin-right: auto;
             }
             
             .profile h1 {
@@ -495,16 +502,16 @@
     
     // Configuration
     const config = {
-        distance: 0.56,
-        radius: 0.027,
+        distance: 0.4, // Closer to the black hole
+        radius: 0.08, // Larger black hole
         diskVisible: true,
-        diskRadius: 0.28,
-        diskAngle: 10,
-        diskThickness: 0.006,
-        diskBrightness: 0.8, // Reduced for background
-        diskRotationSpeed: 0.5, // Slower for background
-        glowStrength: 1.0,
-        glowSize: 0.29,
+        diskRadius: 0.35, // Slightly larger disk
+        diskAngle: 35, // More angled view
+        diskThickness: 0.008,
+        diskBrightness: 1.0,
+        diskRotationSpeed: 2.0, // Faster rotation for visual effect
+        glowStrength: 1.5,
+        glowSize: 0.35,
         showDopplerEffect: true
     };
     
@@ -527,23 +534,43 @@
         
         // Create simple space texture
         const canvas = document.createElement('canvas');
-        canvas.width = 1024;
-        canvas.height = 1024;
+        canvas.width = 2048;
+        canvas.height = 2048;
         const ctx = canvas.getContext('2d');
         
         // Dark space background
-        const gradient = ctx.createRadialGradient(512, 512, 0, 512, 512, 512);
+        const gradient = ctx.createRadialGradient(1024, 1024, 0, 1024, 1024, 1024);
         gradient.addColorStop(0, '#000020');
         gradient.addColorStop(0.5, '#000010');
         gradient.addColorStop(1, '#000000');
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
+        // Add grid that will be distorted
+        ctx.strokeStyle = 'rgba(247, 2, 169, 0.3)';
+        ctx.lineWidth = 2;
+        
+        // Draw vertical lines
+        for (let x = 0; x < canvas.width; x += 100) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+        }
+        
+        // Draw horizontal lines
+        for (let y = 0; y < canvas.height; y += 100) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
+        }
+        
         // Add stars
         for (let i = 0; i < 1000; i++) {
             const x = Math.random() * canvas.width;
             const y = Math.random() * canvas.height;
-            const radius = Math.random() * 1;
+            const radius = Math.random() * 1.5;
             const opacity = Math.random() * 0.5 + 0.2;
             
             ctx.beginPath();
@@ -608,22 +635,9 @@
         // Add event listeners
         window.addEventListener('resize', onWindowResize);
         
-        // Gentle mouse following
-        let mouseX = 0.5;
-        let mouseY = 0.5;
-        
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX / width;
-            mouseY = 1 - e.clientY / height;
-        });
-        
-        // Smooth mouse following
-        function updateMouse() {
-            uniforms.u_mouse.value.x += (mouseX - uniforms.u_mouse.value.x) * 0.05;
-            uniforms.u_mouse.value.y += (mouseY - uniforms.u_mouse.value.y) * 0.05;
-            requestAnimationFrame(updateMouse);
-        }
-        updateMouse();
+        // Fixed black hole position (off-center for orbiting effect)
+        uniforms.u_mouse.value.x = 0.35; // Left-shifted
+        uniforms.u_mouse.value.y = 0.6;  // Slightly above center
     }
     
     function onWindowResize() {
