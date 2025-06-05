@@ -19,11 +19,19 @@
             padding: 0;
         }
         
+        html {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
         body {
             font-family: 'Orbitron', monospace;
             color: white;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             position: relative;
+            margin: 0;
+            padding: 0;
         }
         
         /* Black hole background */
@@ -42,9 +50,9 @@
             min-height: 100vh;
             display: flex;
             justify-content: flex-end;
-            align-items: center;
-            padding: 20px;
-            padding-right: 40px;
+            align-items: flex-start;
+            padding: 40px;
+            padding-right: 60px;
             background: 
                 repeating-linear-gradient(
                     0deg,
@@ -78,6 +86,7 @@
             padding: 40px;
             max-width: 900px;
             width: 100%;
+            margin: 60px 0;
             box-shadow: 
                 0 0 30px rgba(247, 2, 169, 0.5),
                 0 0 60px rgba(247, 2, 169, 0.3),
@@ -143,9 +152,16 @@
         /* Links grid */
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin: 30px 0;
+            width: 100%;
+        }
+        
+        @media (max-width: 1200px) {
+            .links-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
         .link-item {
@@ -243,6 +259,7 @@
         @media (max-width: 768px) {
             .main-container {
                 justify-content: center;
+                align-items: center;
                 padding: 20px;
             }
             
@@ -551,7 +568,7 @@
         ctx.lineWidth = 2;
         
         // Draw vertical lines
-        for (let x = 0; x < canvas.width; x += 100) {
+        for (let x = 0; x < canvas.width; x += 64) {
             ctx.beginPath();
             ctx.moveTo(x, 0);
             ctx.lineTo(x, canvas.height);
@@ -559,7 +576,7 @@
         }
         
         // Draw horizontal lines
-        for (let y = 0; y < canvas.height; y += 100) {
+        for (let y = 0; y < canvas.height; y += 64) {
             ctx.beginPath();
             ctx.moveTo(0, y);
             ctx.lineTo(canvas.width, y);
