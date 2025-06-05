@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <meta property="og:title" content="Link Page for Author NPC Alex">
+    <meta property="og:description" content="Get A.N. Alex's debut sci-fi novel and more links.">
+    <meta property="og:image" content="https://lastnpcalex.com/AMS_3.0_LCV_R1_Cover_Shrunk.png">
+    <meta property="og:url" content="https://lastnpcalex.com">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Orbitron', monospace;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Black hole background */
+        #blackhole-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Main container with futuristic grid */
+        .main-container {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(171, 247, 3, 0.03) 0px,
+                    transparent 1px,
+                    transparent 2px,
+                    rgba(171, 247, 3, 0.03) 3px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(171, 247, 3, 0.03) 0px,
+                    transparent 1px,
+                    transparent 2px,
+                    rgba(171, 247, 3, 0.03) 3px
+                );
+            background-size: 50px 50px;
+            animation: grid-move 10s linear infinite;
+        }
+        
+        @keyframes grid-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+        
+        /* Content container with glassmorphism */
+        .content-wrapper {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 2px solid #F702A9;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 
+                0 0 30px rgba(247, 2, 169, 0.5),
+                0 0 60px rgba(247, 2, 169, 0.3),
+                inset 0 0 30px rgba(171, 247, 3, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Profile section with neon effects */
+        .profile {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .profile a {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .profile img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #F702A9;
+            box-shadow: 
+                0 0 20px rgba(247, 2, 169, 0.8),
+                0 0 40px rgba(247, 2, 169, 0.5),
+                inset 0 0 20px rgba(247, 2, 169, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .profile img:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 
+                0 0 30px rgba(171, 247, 3, 0.8),
+                0 0 60px rgba(171, 247, 3, 0.5);
+            border-color: #abf703;
+        }
+        
+        .profile h1 {
+            font-size: 36px;
+            font-weight: 900;
+            color: #abf703;
+            margin: 20px 0 10px;
+            text-shadow: 
+                0 0 10px rgba(171, 247, 3, 0.8),
+                0 0 20px rgba(171, 247, 3, 0.5),
+                0 0 30px rgba(171, 247, 3, 0.3);
+            letter-spacing: 2px;
+        }
+        
+        .profile p {
+            color: #F702A9;
+            font-size: 16px;
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(247, 2, 169, 0.5);
+        }
+        
+        /* Links grid */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .link-item {
+            background: linear-gradient(135deg, rgba(247, 2, 169, 0.1), rgba(0, 0, 0, 0.5));
+            border: 1px solid #F702A9;
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #F702A9, #abf703, #F702A9);
+            border-radius: 10px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .link-item:hover::before {
+            opacity: 1;
+        }
+        
+        .link-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 5px 20px rgba(247, 2, 169, 0.5),
+                0 10px 40px rgba(171, 247, 3, 0.3);
+        }
+        
+        .link-item a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #F702A9;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+        
+        .link-item:hover a {
+            color: #abf703;
+        }
+        
+        .link-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            margin-right: 15px;
+            box-shadow: 0 0 10px rgba(247, 2, 169, 0.5);
+        }
+        
+        /* Special styling for main link */
+        .main-link {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(171, 247, 3, 0.2), rgba(247, 2, 169, 0.1));
+            border: 2px solid #abf703;
+        }
+        
+        .main-link::before {
+            background: linear-gradient(45deg, #abf703, #F702A9, #abf703);
+        }
+        
+        /* Contact section */
+        .contact {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid rgba(247, 2, 169, 0.3);
+        }
+        
+        .contact p {
+            color: #abf703;
+            font-size: 14px;
+        }
+        
+        .contact a {
+            color: #F702A9;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .contact a:hover {
+            color: #abf703;
+            text-shadow: 0 0 10px rgba(171, 247, 3, 0.8);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 25px;
+                margin: 20px;
+            }
+            
+            .profile h1 {
+                font-size: 28px;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Hide dat.GUI */
+        .dg.ac {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Black hole canvas -->
+    <div id="blackhole-canvas"></div>
+    
+    <!-- Main content -->
+    <div class="main-container">
+        <div class="content-wrapper">
+            {{ content }}
+        </div>
+    </div>
+    
+    <!-- Black hole shaders -->
+    <script id="vertexShader" type="x-shader/x-vertex">
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    </script>
+    
+    <script id="black_hole" type="x-shader/x-fragment">
+        uniform vec2 u_resolution;
+        uniform vec3 u_mouse;
+        uniform sampler2D u_currentTexture;
+        uniform sampler2D u_texture;
+        uniform sampler2D u_diskTexture;
+        uniform int u_frameCount;
+        uniform float u_time;
+        varying vec2 vUv;
+        
+        uniform float u_distance;
+        uniform float u_r_s;
+        uniform bool u_diskVisible;
+        uniform float u_diskRadius;
+        uniform float u_diskAngle;
+        uniform float u_diskThickness;
+        uniform float u_diskBrightness;
+        uniform float u_diskRotationSpeed;
+        uniform float u_glowStrength;
+        uniform float u_glowSize;
+        uniform bool u_dopplerEffect;
+        
+        #define PI 3.1415926535897932384626433832795
+        
+        float rand(float x) {
+            return fract(sin(x * 12.9898) * 43758.5453);
+        }
+        
+        float hash(float n) {
+            return fract(sin(n) * 43758.5453);
+        }
+        
+        float noise(vec3 x) {
+            vec3 p = floor(x);
+            vec3 f = fract(x);
+            f = f * f * (3.0 - 2.0 * f);
+            float n = p.x + p.y * 57.0 + p.z * 113.0;
+            float res = mix(mix(mix(hash(n), hash(n + 1.0), f.x),
+                                mix(hash(n + 57.0), hash(n + 58.0), f.x), f.y),
+                            mix(mix(hash(n + 113.0), hash(n + 114.0), f.x),
+                                mix(hash(n + 170.0), hash(n + 171.0), f.x), f.y), f.z);
+            return res;
+        }
+        
+        float turbulence(vec3 p, float time) {
+            float t = 0.0;
+            float f = 1.0;
+            float angle = time * 0.2;
+            p.xz = mat2(cos(angle), -sin(angle), sin(angle), cos(angle)) * p.xz;
+            for (int i = 0; i < 4; i++) {
+                t += abs(noise(p * f)) / f;
+                f *= 2.0;
+                float octaveAngle = time * 0.1 * float(i+1);
+                p.xz = mat2(cos(octaveAngle), -sin(octaveAngle), sin(octaveAngle), cos(octaveAngle)) * p.xz;
+            }
+            return t;
+        }
+        
+        mat3 rotationMatrix(vec3 axis, float angle) {
+            float s = sin(angle);
+            float c = cos(angle);
+            float oc = 1.0 - c;
+            return mat3(
+                oc * axis.x * axis.x + c, oc * axis.x * axis.y - axis.z * s, oc * axis.z * axis.x + axis.y * s,
+                oc * axis.x * axis.y + axis.z * s, oc * axis.y * axis.y + c, oc * axis.y * axis.z - axis.x * s,
+                oc * axis.z * axis.x - axis.y * s, oc * axis.y * axis.z + axis.x * s, oc * axis.z * axis.z + c
+            );
+        }
+        
+        vec3 getDiskColor(float distance, float angle) {
+            float normDist = distance / u_diskRadius;
+            float innerBoundary = u_r_s * 1.5 / u_diskRadius;
+            vec3 pos = vec3(cos(angle) * distance, 0.0, sin(angle) * distance);
+            float rotationSpeed = u_diskRotationSpeed * u_time;
+            float turbulenceScale = 15.0 * (1.0 - 0.5 * normDist);
+            float turbulenceTime = u_time * u_diskRotationSpeed;
+            vec3 turbulencePos = vec3(pos.x * turbulenceScale, pos.y * turbulenceScale, pos.z * turbulenceScale);
+            float turb = turbulence(turbulencePos, turbulenceTime);
+            float swirl = sin(angle * 5.0 + rotationSpeed * 2.0 + turb * 3.0) * 0.5 + 0.5;
+            float swirl2 = cos(angle * 3.0 - rotationSpeed * 1.5 + turb * 2.0) * 0.5 + 0.5;
+            float temp = 1.0 - pow(normDist, 0.7) + turb * 0.2 - 0.1; 
+            temp = clamp(temp, 0.0, 1.0);
+            vec3 hotColor = vec3(1.0, 0.6, 0.2);
+            vec3 midColor = vec3(0.9, 0.3, 0.6);
+            vec3 coolColor = vec3(0.4, 0.2, 0.8);
+            vec3 color;
+            if (temp > 0.6) {
+                color = mix(hotColor, midColor, (temp - 0.6) / 0.4);
+            } else {
+                color = mix(coolColor, midColor, temp / 0.6);
+            }
+            color = mix(color, hotColor, swirl * 0.3);
+            color = mix(color, coolColor, swirl2 * 0.2);
+            float innerGlow = smoothstep(innerBoundary, innerBoundary + 0.2, normDist) * 
+                             (1.0 - smoothstep(0.7, 1.0, normDist));
+            float brightness = mix(0.7, 2.0, innerGlow) * u_diskBrightness;
+            float filament = sin(angle * 8.0 + normDist * 20.0 + u_time * u_diskRotationSpeed * 2.0) * 0.5 + 0.5;
+            filament = pow(filament, 4.0) * (1.0 - normDist * 0.5);
+            float spots = noise(vec3(pos.x * 40.0, pos.z * 40.0, u_time * u_diskRotationSpeed));
+            spots = pow(spots, 8.0) * 2.0;
+            brightness *= 1.0 + filament * 0.4 + spots * 2.0;
+            float density = 0.8 + turb * 0.4;
+            return color * brightness * density;
+        }
+        
+        float getDiskDensity(vec3 point) {
+            mat3 rotMat = rotationMatrix(vec3(1.0, 0.0, 0.0), u_diskAngle);
+            vec3 rotPoint = rotMat * point;
+            float r = length(point.xz);
+            float normR = (r - u_r_s * 1.5) / (u_diskRadius - u_r_s * 1.5);
+            normR = clamp(normR, 0.0, 1.0);
+            float angle = atan(point.z, point.x);
+            float turbScale = 10.0 / u_diskRadius;
+            vec3 turbPos = vec3(point.x * turbScale, point.y * turbScale, point.z * turbScale);
+            float turb = turbulence(turbPos, u_time * u_diskRotationSpeed);
+            float varyingThickness = u_diskThickness * (1.0 + turb * 2.0);
+            varyingThickness *= 1.0 + 0.5 * sin(angle * 4.0 + u_time * u_diskRotationSpeed * 2.0);
+            float height = rotPoint.y / varyingThickness;
+            float heightFactor = exp(-height * height * (3.0 + turb * 4.0));
+            float filament = sin(angle * 6.0 + normR * 15.0 + u_time * u_diskRotationSpeed) * 0.5 + 0.5;
+            filament = pow(filament, 3.0) * (1.0 - normR * 0.7);
+            float radialFactor = pow(1.0 - normR, 1.0) * exp(-normR * (2.0 + turb));
+            float densityFluctuation = noise(vec3(
+                point.x * 30.0, 
+                point.z * 30.0, 
+                u_time * u_diskRotationSpeed * 0.5
+            ));
+            densityFluctuation = pow(densityFluctuation, 4.0) * 2.0;
+            float density = heightFactor * radialFactor * (1.0 + filament * 0.5 + densityFluctuation + turb * 0.3);
+            float brightness = 1.0 + u_diskRadius * 3.0;
+            return density * brightness;
+        }
+        
+        void main() {
+            vec2 D_S = vUv - u_mouse.xy;
+            vec2 ratio = vec2(u_resolution.y/u_resolution.x, 1.0);
+            float rad = length(D_S/ratio);
+            float deformation = 2.0 * u_r_s * 1.0 / pow(rad * pow(u_distance, 0.5), 2.0) * 0.1;
+            D_S = D_S * (1.0 - deformation);
+            vec2 lensedCoords = D_S + u_mouse.xy;
+            vec4 color = texture2D(u_texture, lensedCoords);
+            vec3 diskContribution = vec3(0.0);
+            float diskIntensity = 0.0;
+            bool isInFrontOfBlackHole = false;
+            vec3 rayOrigin = vec3(D_S.x, D_S.y, -u_distance);
+            vec3 rayDir = vec3(0.0, 0.0, 1.0);
+            
+            if (u_diskVisible) {
+                mat3 invRotMat = rotationMatrix(vec3(1.0, 0.0, 0.0), -u_diskAngle);
+                vec3 rotRayOrigin = invRotMat * rayOrigin;
+                vec3 rotRayDir = invRotMat * rayDir;
+                if (abs(rotRayDir.y) > 0.0001) {
+                    float t = -rotRayOrigin.y / rotRayDir.y;
+                    vec3 intersection = rotRayOrigin + t * rotRayDir;
+                    float r = length(intersection.xz);
+                    if (r > u_r_s * 1.5 && r < u_diskRadius) {
+                        float angle = atan(intersection.z, intersection.x);
+                        vec3 diskColor = getDiskColor(r, angle);
+                        float density = getDiskDensity(intersection);
+                        diskContribution = diskColor;
+                        diskIntensity = density;
+                        vec3 worldIntersection = rotationMatrix(vec3(1.0, 0.0, 0.0), u_diskAngle) * intersection;
+                        isInFrontOfBlackHole = (worldIntersection.z > 0.0);
+                        vec3 baseColor = color.rgb;
+                        vec3 combinedColor;
+                        if (isInFrontOfBlackHole) {
+                            combinedColor = mix(baseColor, diskColor, min(density * 3.0, 1.0));
+                        } else {
+                            if (rad * u_distance < u_r_s) {
+                                combinedColor = vec3(0.0);
+                            } else {
+                                combinedColor = mix(baseColor, diskColor, min(density * 3.0, 1.0));
+                            }
+                        }
+                        float glow = exp(-pow(r / u_diskRadius, 2.0) * 5.0) * 0.5;
+                        combinedColor += diskColor * glow;
+                        color = vec4(combinedColor, 1.0);
+                    }
+                }
+                if (u_glowStrength > 0.0 && diskIntensity > 0.0) {
+                    for (float i = -2.0; i <= 2.0; i += 1.0) {
+                        for (float j = -2.0; j <= 2.0; j += 1.0) {
+                            if (i == 0.0 && j == 0.0) continue;
+                            vec2 offset = vec2(i, j) * u_glowSize / 100.0;
+                            vec2 sampleCoord = vUv + offset;
+                            vec2 sampleD_S = sampleCoord - u_mouse.xy;
+                            float sampleRad = length(sampleD_S/ratio);
+                            float weight = 1.0 - length(offset) * 10.0;
+                            weight = max(0.0, weight);
+                            color.rgb += diskContribution * weight * u_glowStrength * diskIntensity * 0.1;
+                        }
+                    }
+                }
+            }
+            if (rad * u_distance < u_r_s && !isInFrontOfBlackHole) {
+                color = vec4(0.0, 0.0, 0.0, 1.0);
+            }
+            gl_FragColor = color;
+        }
+    </script>
+    
+    <!-- Three.js and dat.GUI -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+    
+    <!-- Modified black hole script -->
+    <script>
+    // Modified black hole script for background use
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let renderer, scene, camera, material, uniforms, rtFront;
+    
+    // Configuration
+    const config = {
+        distance: 0.56,
+        radius: 0.027,
+        diskVisible: true,
+        diskRadius: 0.28,
+        diskAngle: 10,
+        diskThickness: 0.006,
+        diskBrightness: 0.8, // Reduced for background
+        diskRotationSpeed: 0.5, // Slower for background
+        glowStrength: 1.0,
+        glowSize: 0.29,
+        showDopplerEffect: true
+    };
+    
+    init();
+    animate();
+    
+    function init() {
+        // Set up renderer
+        const container = document.getElementById('blackhole-canvas');
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(width, height);
+        container.appendChild(renderer.domElement);
+        
+        // Set up camera and scene
+        camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        scene = new THREE.Scene();
+        
+        // Create plane geometry
+        const geometry = new THREE.PlaneBufferGeometry(2, 2);
+        
+        // Create simple space texture
+        const canvas = document.createElement('canvas');
+        canvas.width = 1024;
+        canvas.height = 1024;
+        const ctx = canvas.getContext('2d');
+        
+        // Dark space background
+        const gradient = ctx.createRadialGradient(512, 512, 0, 512, 512, 512);
+        gradient.addColorStop(0, '#000020');
+        gradient.addColorStop(0.5, '#000010');
+        gradient.addColorStop(1, '#000000');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Add stars
+        for (let i = 0; i < 1000; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const radius = Math.random() * 1;
+            const opacity = Math.random() * 0.5 + 0.2;
+            
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+            ctx.fill();
+        }
+        
+        const spaceTexture = new THREE.CanvasTexture(canvas);
+        
+        // Create disk texture
+        const diskCanvas = document.createElement('canvas');
+        diskCanvas.width = 1024;
+        diskCanvas.height = 256;
+        const diskCtx = diskCanvas.getContext('2d');
+        
+        const diskGradient = diskCtx.createLinearGradient(0, 0, diskCanvas.width, 0);
+        diskGradient.addColorStop(0, '#F702A9');
+        diskGradient.addColorStop(0.3, '#FF6633');
+        diskGradient.addColorStop(0.6, '#abf703');
+        diskGradient.addColorStop(1, '#330066');
+        
+        diskCtx.fillStyle = diskGradient;
+        diskCtx.fillRect(0, 0, diskCanvas.width, diskCanvas.height);
+        
+        const diskTexture = new THREE.CanvasTexture(diskCanvas);
+        
+        // Set up uniforms
+        uniforms = {
+            u_distance: { value: config.distance },
+            u_r_s: { value: config.radius },
+            u_resolution: { value: new THREE.Vector2(width, height) },
+            u_texture: { value: spaceTexture },
+            u_diskTexture: { value: diskTexture },
+            u_currentTexture: { value: null },
+            u_mouse: { value: new THREE.Vector3(0.5, 0.5, 0) },
+            u_frameCount: { value: 0 },
+            u_time: { value: 0 },
+            u_diskVisible: { value: config.diskVisible },
+            u_diskRadius: { value: config.diskRadius },
+            u_diskAngle: { value: config.diskAngle * Math.PI / 180 },
+            u_diskThickness: { value: config.diskThickness },
+            u_diskBrightness: { value: config.diskBrightness },
+            u_diskRotationSpeed: { value: config.diskRotationSpeed },
+            u_glowStrength: { value: config.glowStrength },
+            u_glowSize: { value: config.glowSize },
+            u_dopplerEffect: { value: config.showDopplerEffect }
+        };
+        
+        // Create material
+        material = new THREE.ShaderMaterial({
+            uniforms: uniforms,
+            vertexShader: document.getElementById('vertexShader').textContent,
+            fragmentShader: document.getElementById('black_hole').textContent,
+            transparent: true
+        });
+        
+        // Create mesh
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+        
+        // Add event listeners
+        window.addEventListener('resize', onWindowResize);
+        
+        // Gentle mouse following
+        let mouseX = 0.5;
+        let mouseY = 0.5;
+        
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX / width;
+            mouseY = 1 - e.clientY / height;
+        });
+        
+        // Smooth mouse following
+        function updateMouse() {
+            uniforms.u_mouse.value.x += (mouseX - uniforms.u_mouse.value.x) * 0.05;
+            uniforms.u_mouse.value.y += (mouseY - uniforms.u_mouse.value.y) * 0.05;
+            requestAnimationFrame(updateMouse);
+        }
+        updateMouse();
+    }
+    
+    function onWindowResize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        renderer.setSize(width, height);
+        uniforms.u_resolution.value.set(width, height);
+    }
+    
+    function animate() {
+        requestAnimationFrame(animate);
+        uniforms.u_time.value = performance.now() / 1000;
+        uniforms.u_frameCount.value++;
+        renderer.render(scene, camera);
+    }
+    </script>
+</body>
+</html>
