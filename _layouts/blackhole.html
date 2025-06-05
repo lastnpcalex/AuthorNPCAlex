@@ -52,7 +52,7 @@
             justify-content: flex-end;
             align-items: flex-start;
             padding: 40px;
-            padding-right: 60px;
+            padding-right: 20px;
             background: 
                 repeating-linear-gradient(
                     0deg,
@@ -84,9 +84,11 @@
             border: 2px solid #F702A9;
             border-radius: 20px;
             padding: 40px;
-            max-width: 900px;
+            max-width: 800px;
             width: 100%;
             margin: 60px 0;
+            margin-left: auto;
+            margin-right: 100px; /* Offset to the right */
             box-shadow: 
                 0 0 30px rgba(247, 2, 169, 0.5),
                 0 0 60px rgba(247, 2, 169, 0.3),
@@ -267,6 +269,7 @@
                 padding: 25px;
                 margin: 20px;
                 margin-right: auto;
+                margin-left: auto;
             }
             
             .profile h1 {
@@ -374,9 +377,77 @@
             );
         }
         
+        // Infalling gas spiral effect
+        vec3 getInfallingGas(vec2 pos, float time) {
+            vec2 toCenter = pos - u_mouse.xy;
+            float dist = length(toCenter);
+            float angle = atan(toCenter.y, toCenter.x);
+            
+            // Only show gas outside event horizon but within influence
+            if (dist < u_r_s * 1.2 || dist > u_diskRadius * 2.5) {
+                return vec3(0.0);
+            }
+            
+            // Create diffuse gas clouds
+            vec3 gasColor = vec3(0.0);
+            
+            // Slow, leisurely spiral
+            float spiralTime = time * u_diskRotationSpeed * 0.15; // Even slower for more leisurely effect
+            
+            // Create multiple diffuse gas clouds
+            for (float i = 0.0; i < 8.0; i++) {
+                // Each cloud has its own phase
+                float phase = i * 2.0 * PI / 8.0;
+                
+                // Logarithmic spiral that gets tighter as it approaches center
+                float spiralAngle = angle - log(dist) * 0.8 - spiralTime + phase;
+                
+                // Create broad, diffuse gas clouds
+                float cloudWidth = 0.5 + 0.2 * sin(spiralTime * 0.5 + i);
+                float cloudDensity = sin(spiralAngle * 1.0) * 0.5 + 0.5;
+                cloudDensity = pow(cloudDensity, 0.3); // Even softer edges
+                
+                // Add turbulence for cloud-like appearance
+                vec3 turbPos = vec3(pos * 3.0, time * 0.05);
+                float turb = turbulence(turbPos, time * 0.1);
+                cloudDensity *= 0.8 + 0.2 * turb;
+                
+                // Gas temperature based on distance
+                float heat = 1.0 - dist / (u_diskRadius * 2.5);
+                heat = pow(heat, 1.5);
+                
+                // Soft color gradient
+                vec3 coolColor = vec3(0.4, 0.2, 0.6);
+                vec3 warmColor = vec3(0.8, 0.4, 0.3);
+                vec3 hotColor = vec3(1.0, 0.7, 0.4);
+                
+                vec3 cloudColor;
+                if (heat < 0.5) {
+                    cloudColor = mix(coolColor, warmColor, heat * 2.0);
+                } else {
+                    cloudColor = mix(warmColor, hotColor, (heat - 0.5) * 2.0);
+                }
+                
+                // Fade out gradually as it approaches event horizon
+                float fadeOut = smoothstep(u_r_s * 1.2, u_r_s * 4.0, dist);
+                
+                // Add some variation in brightness
+                float brightness = 0.5 + 0.05 * sin(spiralAngle * 2.0 + time * 0.5);
+                
+                // Accumulate diffuse gas
+                gasColor += cloudColor * cloudDensity * brightness * fadeOut * 0.15; // Very diffuse
+            }
+            
+            // Add some overall glow
+            float glowIntensity = exp(-dist * 3.0) * 0.2;
+            gasColor += vec3(0.5, 0.3, 0.7) * glowIntensity;
+            
+            return gasColor * 0.8;
+        }
+        
         vec3 getDiskColor(float distance, float angle) {
             float normDist = distance / u_diskRadius;
-            float innerBoundary = u_r_s * 1.5 / u_diskRadius;
+            float innerBoundary = u_r_s * 1.1 / u_diskRadius; // Closer to event horizon
             vec3 pos = vec3(cos(angle) * distance, 0.0, sin(angle) * distance);
             float rotationSpeed = u_diskRotationSpeed * u_time;
             float turbulenceScale = 15.0 * (1.0 - 0.5 * normDist);
@@ -398,9 +469,9 @@
             }
             color = mix(color, hotColor, swirl * 0.3);
             color = mix(color, coolColor, swirl2 * 0.2);
-            float innerGlow = smoothstep(innerBoundary, innerBoundary + 0.2, normDist) * 
+            float innerGlow = smoothstep(innerBoundary, innerBoundary + 0.1, normDist) * 
                              (1.0 - smoothstep(0.7, 1.0, normDist));
-            float brightness = mix(0.7, 2.0, innerGlow) * u_diskBrightness;
+            float brightness = mix(1.5, 2.5, innerGlow) * u_diskBrightness; // Brighter inner edge
             float filament = sin(angle * 8.0 + normDist * 20.0 + u_time * u_diskRotationSpeed * 2.0) * 0.5 + 0.5;
             filament = pow(filament, 4.0) * (1.0 - normDist * 0.5);
             float spots = noise(vec3(pos.x * 40.0, pos.z * 40.0, u_time * u_diskRotationSpeed));
@@ -414,7 +485,7 @@
             mat3 rotMat = rotationMatrix(vec3(1.0, 0.0, 0.0), u_diskAngle);
             vec3 rotPoint = rotMat * point;
             float r = length(point.xz);
-            float normR = (r - u_r_s * 1.5) / (u_diskRadius - u_r_s * 1.5);
+            float normR = (r - u_r_s * 1.1) / (u_diskRadius - u_r_s * 1.1);
             normR = clamp(normR, 0.0, 1.0);
             float angle = atan(point.z, point.x);
             float turbScale = 10.0 / u_diskRadius;
@@ -442,7 +513,7 @@
             vec2 D_S = vUv - u_mouse.xy;
             vec2 ratio = vec2(u_resolution.y/u_resolution.x, 1.0);
             float rad = length(D_S/ratio);
-            float deformation = 2.0 * u_r_s * 1.0 / pow(rad * pow(u_distance, 0.5), 2.0) * 0.1;
+            float deformation = 2.0 * u_r_s * 1.0 / pow(rad * pow(u_distance, 0.5), 2.0) * 0.05; // Reduced lensing
             D_S = D_S * (1.0 - deformation);
             vec2 lensedCoords = D_S + u_mouse.xy;
             vec4 color = texture2D(u_texture, lensedCoords);
@@ -452,6 +523,10 @@
             vec3 rayOrigin = vec3(D_S.x, D_S.y, -u_distance);
             vec3 rayDir = vec3(0.0, 0.0, 1.0);
             
+            // Add infalling gas
+            vec3 gasColor = getInfallingGas(vUv, u_time);
+            color.rgb += gasColor;
+            
             if (u_diskVisible) {
                 mat3 invRotMat = rotationMatrix(vec3(1.0, 0.0, 0.0), -u_diskAngle);
                 vec3 rotRayOrigin = invRotMat * rayOrigin;
@@ -460,7 +535,7 @@
                     float t = -rotRayOrigin.y / rotRayDir.y;
                     vec3 intersection = rotRayOrigin + t * rotRayDir;
                     float r = length(intersection.xz);
-                    if (r > u_r_s * 1.5 && r < u_diskRadius) {
+                    if (r > u_r_s * 1.1 && r < u_diskRadius) {
                         float angle = atan(intersection.z, intersection.x);
                         vec3 diskColor = getDiskColor(r, angle);
                         float density = getDiskDensity(intersection);
@@ -519,14 +594,14 @@
     
     // Configuration
     const config = {
-        distance: 0.4, // Closer to the black hole
-        radius: 0.08, // Larger black hole
+        distance: 0.5, // Further back for less lensing
+        radius: 0.06, // Smaller black hole for less distortion
         diskVisible: true,
-        diskRadius: 0.35, // Slightly larger disk
-        diskAngle: 35, // More angled view
-        diskThickness: 0.004,
+        diskRadius: 0.5, // Much larger disk
+        diskAngle: 25, // Less angled for thicker appearance
+        diskThickness: 0.006, // Thicker disk appearance
         diskBrightness: 1.0,
-        diskRotationSpeed: 2.0, // Faster rotation for visual effect
+        diskRotationSpeed: 1.0, // Slower rotation
         glowStrength: 1.5,
         glowSize: 0.35,
         showDopplerEffect: true
@@ -551,12 +626,12 @@
         
         // Create simple space texture
         const canvas = document.createElement('canvas');
-        canvas.width = 2048;
-        canvas.height = 2048;
+        canvas.width = 4096;
+        canvas.height = 4096;
         const ctx = canvas.getContext('2d');
         
         // Dark space background
-        const gradient = ctx.createRadialGradient(1024, 1024, 0, 1024, 1024, 1024);
+        const gradient = ctx.createRadialGradient(2048, 2048, 0, 2048, 2048, 2048);
         gradient.addColorStop(0, '#000020');
         gradient.addColorStop(0.5, '#000010');
         gradient.addColorStop(1, '#000000');
@@ -564,11 +639,11 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         // Add grid that will be distorted
-        ctx.strokeStyle = 'rgba(247, 2, 169, 0.3)';
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(247, 2, 169, 0.2)';
+        ctx.lineWidth = 1;
         
         // Draw vertical lines
-        for (let x = 0; x < canvas.width; x += 64) {
+        for (let x = 0; x < canvas.width; x += 205) { // Match CSS grid spacing relative to canvas size
             ctx.beginPath();
             ctx.moveTo(x, 0);
             ctx.lineTo(x, canvas.height);
@@ -576,7 +651,7 @@
         }
         
         // Draw horizontal lines
-        for (let y = 0; y < canvas.height; y += 64) {
+        for (let y = 0; y < canvas.height; y += 205) { // Match CSS grid spacing relative to canvas size
             ctx.beginPath();
             ctx.moveTo(0, y);
             ctx.lineTo(canvas.width, y);
@@ -584,7 +659,7 @@
         }
         
         // Add stars
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < 2000; i++) {
             const x = Math.random() * canvas.width;
             const y = Math.random() * canvas.height;
             const radius = Math.random() * 1.5;
@@ -623,7 +698,7 @@
             u_texture: { value: spaceTexture },
             u_diskTexture: { value: diskTexture },
             u_currentTexture: { value: null },
-            u_mouse: { value: new THREE.Vector3(0.78, 0.22, 0) },
+            u_mouse: { value: new THREE.Vector3(0.5, 0.5, 0) },
             u_frameCount: { value: 0 },
             u_time: { value: 0 },
             u_diskVisible: { value: config.diskVisible },
@@ -652,9 +727,9 @@
         // Add event listeners
         window.addEventListener('resize', onWindowResize);
         
-        // Fixed black hole position (off-center for orbiting effect)
-        uniforms.u_mouse.value.x = 0.35; // Left-shifted
-        uniforms.u_mouse.value.y = 0.6;  // Slightly above center
+        // Fixed black hole position (centered above the card)
+        uniforms.u_mouse.value.x = 0.5; // Centered horizontally
+        uniforms.u_mouse.value.y = 0.7;  // Above the card
     }
     
     function onWindowResize() {
