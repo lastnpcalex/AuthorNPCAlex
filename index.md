@@ -5,7 +5,7 @@ title: "Link Page for Author NPC Alex"
 
 <div class="profile">
     <a href="https://bsky.app/profile/lastnpcalex.agency" target="_blank">
-        <img src="Author_Image.png" alt="Profile Picture">
+        <img src="Author_image.jpg" alt="Profile Picture">
     </a>
     <h1>Author NPC Alex</h1>
     <p>⛅ i am the Demiurge now, so be nice ⛅</p>
