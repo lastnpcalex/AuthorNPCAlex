@@ -409,14 +409,14 @@
                 float brightness = 0.5 + 0.15 * sin(spiralAngle * 2.0 + time * 0.5);
                 
                 // Accumulate diffuse gas
-                gasColor += cloudColor * cloudDensity * brightness * fadeOut * 0.17; // Increased visibility
+                gasColor += cloudColor * cloudDensity * brightness * fadeOut * 0.5; // Increased visibility
             }
             
             // Add some overall glow - increased
             float glowIntensity = exp(-dist * 2.5) * 0.2;
             gasColor += vec3(0.6, 0.3, 0.7) * glowIntensity;
             
-            return gasColor * 0.85; // Increased opacity
+            return gasColor * 0.5; // Increased opacity
         }
         
         vec3 getDiskColor(float distance, float angle) {
