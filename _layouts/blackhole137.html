@@ -419,7 +419,7 @@
             float glowIntensity = exp(-dist * 2.5) * 0.2;
             gasColor += vec3(0.6, 0.3, 0.7) * glowIntensity;
             
-            return gasColor * 0.5; // Increased opacity
+            return gasColor * 0.35; // Increased opacity
         }
         
         vec3 getDiskColor(float distance, float angle) {
@@ -746,9 +746,7 @@
         // Add event listeners
         window.addEventListener('resize', onWindowResize);
         
-        // Fixed black hole position (properly centered)
-        uniforms.u_mouse.value.x = 0.5; // Back to center
-        uniforms.u_mouse.value.y = 0.7;  // Above the card
+   
     }
     
     function onWindowResize() {
