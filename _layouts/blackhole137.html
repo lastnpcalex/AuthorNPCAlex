@@ -50,7 +50,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             padding: 40px;
         }
         
@@ -63,8 +63,7 @@
             padding: 40px;
             max-width: 800px;
             width: 100%;
-            margin: 60px 0;
-            margin-left: 300px; /* Offset to the right of center */
+            margin: 60px auto;   /* top/bottom 60px, left/right auto → centred */
             box-shadow: 
                 0 0 30px rgba(247, 2, 169, 0.5),
                 0 0 60px rgba(247, 2, 169, 0.3),
@@ -243,9 +242,7 @@
             
             .content-wrapper {
                 padding: 25px;
-                margin: 20px;
-                margin-right: auto;
-                margin-left: auto;
+                margin: 20px auto;
             }
             
             .profile h1 {
@@ -412,14 +409,14 @@
                 float brightness = 0.5 + 0.15 * sin(spiralAngle * 2.0 + time * 0.5);
                 
                 // Accumulate diffuse gas
-                gasColor += cloudColor * cloudDensity * brightness * fadeOut * 0.15; // Increased visibility
+                gasColor += cloudColor * cloudDensity * brightness * fadeOut * 0.17; // Increased visibility
             }
             
             // Add some overall glow - increased
             float glowIntensity = exp(-dist * 2.5) * 0.2;
             gasColor += vec3(0.6, 0.3, 0.7) * glowIntensity;
             
-            return gasColor * 0.8; // Increased opacity
+            return gasColor * 0.85; // Increased opacity
         }
         
         vec3 getDiskColor(float distance, float angle) {
