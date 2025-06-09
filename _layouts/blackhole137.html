@@ -51,7 +51,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 80px 40px 40px; /* ↑ adds 40 px extra at the top */
+            padding: 180px 40px 40px; /* ↑ adds 40 px extra at the top */
         }
         
         /* Content container with glassmorphism */
@@ -391,10 +391,13 @@
                 heat = pow(heat, 1.5);
                 
                 // Soft color gradient - slightly more saturated
-                vec3 coolColor = vec3(0.6, 0.3, 0.7); // Muted purple
-                vec3 warmColor = vec3(0.8, 0.5, 0.4); // Muted warm
-                vec3 hotColor = vec3(0.9, 0.6, 0.4);  // Muted orange
-                
+                // vec3 coolColor = vec3(0.6, 0.3, 0.7); // Muted purple
+                // vec3 warmColor = vec3(0.8, 0.5, 0.4); // Muted warm
+                // vec3 hotColor = vec3(0.9, 0.6, 0.4);  // Muted orange
+                vec3 coolColor = vec3(0.1, 0.4, 0.9); // deep blue  (was 0.6,0.3,0.7)
+                vec3 warmColor = vec3(0.3, 0.7, 0.9); // cyan-ish   (was 0.8,0.5,0.4)
+                vec3 hotColor  = vec3(0.4, 0.9, 0.8); // aqua       (was 0.9,0.6,0.4)
+
                 vec3 cloudColor;
                 if (heat < 0.5) {
                     cloudColor = mix(coolColor, warmColor, heat * 2.0);
