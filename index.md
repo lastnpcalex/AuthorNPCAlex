@@ -1,6 +1,6 @@
 ---
 layout: blackhole137
-title: "Link Page for Author NPC Alex"
+title: "Link Page for A.N. Alex"
 ---
 <div class="profile">
     <a href="https://deer.social/profile/lastnpcalex.agency" target="_blank">
